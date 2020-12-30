@@ -116,3 +116,5 @@ dist
 
 
 build
+
+.env
