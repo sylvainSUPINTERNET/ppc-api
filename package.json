@@ -1,0 +1,29 @@
+{
+  "name": "ppc-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "nodemon --watch '**/*.ts' --exec 'ts-node' src/index.ts",
+    "dev-win": "nodemon --watch '**/*.ts' --exec ts-node src/index.ts",
+    "prod": "tsc && node ./build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sylvainSUPINTERNET/ppc-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sylvainSUPINTERNET/ppc-api/issues"
+  },
+  "homepage": "https://github.com/sylvainSUPINTERNET/ppc-api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "pg": "^8.5.1",
+    "sequelize": "^6.3.5"
+  }
+}
