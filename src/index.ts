@@ -15,18 +15,19 @@ import app from './server/Application';
 import authRouter from "./router/auth/auth";
 
 const cors = require('cors');
-const corsOptions = {
-    origin: "*",//'http://localhost:3000',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+
+app.use(cors({
+    origin: process.env.CORS_ORIGIN_CLIENT_COOKIE_HTTPONLY,
+    credentials: true
+    }));
 
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
-app.use(cors(corsOptions));
 app.use(cookieParser());
+
 
 /**
  * HTTP logger
@@ -39,7 +40,18 @@ app.use(morgan('combined'));
 /**
  * Resources
  */
+/*
 app.use(getResourcePath('auth'), authRouter);
+*/
+
+
+
+app.get('/test', (req,res,next) => {
+    console.log("COOKIES ? " , req.cookies);
+    res.status(200).json({
+        "message":"salut"
+    })
+})
 
 
 // oauth redirect - redirect_uri Oauth2
@@ -65,7 +77,11 @@ app.get('/connect/google', async (req,res,next) => {
     const tokenInfo = await fetch(endpoints["token_endpoint"], optionsToken);
     const tokenResponse = await tokenInfo.json();
     let accessToken =  tokenResponse["access_token"]
+
+    // online avilable with client online in URL not offline
+    //let refreshToken = tokenResponse["refresh_token"] // use if in case of offline, if u need token once again
     console.log("access token : " + accessToken)
+    //console.log("refresh token" + refreshToken)
     console.log("scope : " + tokenResponse["scope"])
 
 
@@ -87,13 +103,61 @@ app.get('/connect/google', async (req,res,next) => {
     // Save user in DB + init session 
     // TODO : https://www.grafikart.fr/tutoriels/oauth2-php-google-1171 26:24
 
+    // TODO => insert User in DB IF not exist only
+    // Create session with that user 
+    // Redirect to the client URL with the user ID (client side handle it to connect user)
 
+
+    // Create user 
+    // Returns data in cookie for auto completion (client)
+    // Account is consider as disable, until the user associate username to it
+    // When its done => user account is definitly created.
+
+
+    // https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=<accesstoken> // retrieve info
+    // Ce qu'on peut faire c'est regarder le scope de l'utilisateur pour se baser là dessus concernant les "roles" => limtié mais suffisant
+
+
+    // TODO :
+    // 0 - Send access token (from cookie read only with react) => fetch same origin ?
+    // 1 - Middleware : Analysis token with the provider tokeninfo path (ex for google) https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=<accesstoken>
+    // 2 - 
+
+
+        if ( process.env.ACTIVE_PROFIL === "prod") {
+            // for secure need HTTPs
+            res.cookie("zg-access-token", accessToken, { httpOnly: true, secure:false, maxAge: 3600}); // path to be accessible on every pages
+            res.cookie("zg-access-token-provider", "google", { httpOnly: true, secure:false, maxAge: 3600}); // path to be accessible on every pages
+
+        }
+
+        if ( process.env.ACTIVE_PROFIL === "dev" ) {
+            res.cookie("zg-access-token", accessToken, { httpOnly: true, secure:false, maxAge: 3600}); // path to be accessible on every pages
+            res.cookie("zg-access-token-provider", "google", { httpOnly: true, secure:false, maxAge: 3600}); // path to be accessible on every pages
+        }
+
+        
+        res.redirect( process.env.OAUTH_REDIRECT_SUCCESS_CLIENT)
+
+
+          /*
     res.status(200)
         .json({
             "email":respUserInfo["email"],
             "picture": respUserInfo["picture"],
             "message": `Connected with ${respUserInfo["email"]}`
-        })
+        })*/
+
+
+        /*
+        Response when token is expired 
+        {
+        error: "invalid_token",
+        error_description: "Invalid Value"
+        }
+        */
+
+
 });
 
 
