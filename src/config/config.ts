@@ -13,8 +13,9 @@ export const dbConfig = {
     USER: 'root',
     PASSWORD: 'root',
     HOST: 'localhost',
-    DB_NAME: 'zg-node',
-    DIALECT: 'postgres'
+    DB_NAME: 'ppc',
+    DIALECT: 'postgres',
+    PORT: 5432
 }
 
 /**

@@ -3,9 +3,11 @@
 require('dotenv').config();
 
 import {OauthProvider} from "./config/oauthConfig";
+import {sequelize} from "./db/DbConnection";
+import models from "./db/models/index";
 
 
-import {config, getResourcePath} from './config/config';
+import {config, dbConfig, getResourcePath} from './config/config';
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
@@ -13,6 +15,7 @@ const fetch = require('node-fetch');
 
 import app from './server/Application';
 import authRouter from "./router/auth/auth";
+import { Users } from "./db/models/users.model";
 
 const jwt = require('jsonwebtoken');
 
@@ -50,7 +53,6 @@ app.use(getResourcePath('auth'), authRouter);
 
 
 app.get('/test', (req,res,next) => {
-    console.log("COOKIES ? " , req.cookies);
     res.status(200).json({
         "message":"salut"
     })
@@ -124,6 +126,38 @@ app.get('/connect/google', async (req,res,next) => {
     console.log(respUserInfo);
     console.log("USER EMAIL : " + respUserInfo["email"]);
     console.log("USER PICTURE " + respUserInfo["picture"])
+
+    const user = await Users.findOne({
+        where:  {
+            fullName: respUserInfo["name"],
+            lastName: respUserInfo["family_name"],
+            firstName: respUserInfo["given_name"],
+            email: respUserInfo["email"],
+            locale: 'fr'
+        },
+    });
+    console.log("USER FOUND : ", user);
+
+    if ( user === null ) {
+        try {
+            const newUser = Users.build({             
+                fullName: respUserInfo["name"],
+                pictureLink: respUserInfo["picture"],
+                lastName: respUserInfo["family_name"],
+                firstName: respUserInfo["given_name"],
+                email: respUserInfo["email"],
+                locale: 'fr',
+                active: true});
+            const respSave = await newUser.save();
+        } catch ( e ) {
+            console.log("ERR save new user : ", e);
+        }
+
+    } else {
+        console.log("User already exist. Skip creation")
+    }
+
+    
 
 
     // Save user in DB + init session 
@@ -210,5 +244,23 @@ app.get('/connect/google', async (req,res,next) => {
  * Startup
  */
 app.listen(config.PORT, async () => {
-    // TODO db connection ici
+    try {
+        await sequelize.authenticate();
+
+        console.log('database connection has been established successfully.');
+
+        // Sync models : 
+        
+        if ( process.env.ACTIVE_PROFIL === "dev" ) {
+            // todo sync alter model
+            models.map( async model => {
+                await model.sync({ alter: true });
+            });
+        } else {
+            // todo sync model without alter 
+        }
+
+    } catch  ( e )  {
+        console.log("DB connection failed : " + e)
+    }
 })

@@ -7,6 +7,7 @@ const { Sequelize } = require('sequelize');
 class DbConnection {
     Sequelize;
 
+
     constructor() {
         this.Sequelize = new Sequelize(dbConfig.DB_NAME, dbConfig.USER, dbConfig.PASSWORD, {
             host: dbConfig.HOST,
