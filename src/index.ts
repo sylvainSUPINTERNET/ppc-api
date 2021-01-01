@@ -14,6 +14,9 @@ const fetch = require('node-fetch');
 import app from './server/Application';
 import authRouter from "./router/auth/auth";
 
+const jwt = require('jsonwebtoken');
+
+
 const cors = require('cors');
 
 app.use(cors({
@@ -51,6 +54,29 @@ app.get('/test', (req,res,next) => {
     res.status(200).json({
         "message":"salut"
     })
+})
+
+app.get('/api/v1/token/verify', (req,res,next) => {
+    if (req.headers.authorization) {
+        const token = req.headers.authorization.split(" ")[1];
+
+        try {
+            let decoded = jwt.verify(token,  process.env.JWT_CLIENT_TOKEN_SECRET);
+            res.status(200).json({
+                "data": decoded
+            })
+        } catch (e) {
+            res.status(403).json({
+                "data": e
+            })
+        }
+
+    } else {
+        res.status(403).json({
+            "data": "No allowed"
+        });
+    }
+
 })
 
 
@@ -124,6 +150,7 @@ app.get('/connect/google', async (req,res,next) => {
     // 2 - 
 
 
+    /*
         if ( process.env.ACTIVE_PROFIL === "prod") {
             // for secure need HTTPs
             res.cookie("zg-access-token", accessToken, { httpOnly: true, secure:false, maxAge: 3600}); // path to be accessible on every pages
@@ -135,9 +162,26 @@ app.get('/connect/google', async (req,res,next) => {
             res.cookie("zg-access-token", accessToken, { httpOnly: true, secure:false, maxAge: 3600}); // path to be accessible on every pages
             res.cookie("zg-access-token-provider", "google", { httpOnly: true, secure:false, maxAge: 3600}); // path to be accessible on every pages
         }
+        */
 
-        
-        res.redirect( process.env.OAUTH_REDIRECT_SUCCESS_CLIENT)
+        // TODO : 
+        // render with access token + JWT token (for role) as encrypted data in url
+        // TODO create user with respUserInfo
+        // Attribute right role (attached to role permissions)
+        // generate JWT with claims for info (send to client)
+
+
+
+        /// TODO 
+        // - create table user pour info OAUTH2 => one user has many roles
+        // - create table role => has many permissions (table permission todo)
+        // - If user for OAUTH2 infos not exist, create him else do nothing
+
+        let tokenClient = jwt.sign(respUserInfo, process.env.JWT_CLIENT_TOKEN_SECRET);
+        res.redirect(process.env.OAUTH_REDIRECT_SUCCESS_CLIENT + "/auth/redirect?tok="+tokenClient)
+
+        // If user is logged, by default relation to role USER 
+        // but can change his role ? (do not required JWT in this case)
 
 
           /*
