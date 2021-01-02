@@ -2,6 +2,7 @@
 
 import {sequelize} from "../../db/DbConnection";
 import { Users } from "./users.model";
+import { Permissions } from "./permissions.model";
 
 const { DataTypes } = require('sequelize');
 
@@ -18,4 +19,6 @@ export const Roles = sequelize.define('roles', {
 
 
 
-  Roles.hasMany(Users, { as: "users"});
+
+Roles.hasMany(Permissions, { as: "permissions"});
+Roles.hasMany(Users, { as: "users"});

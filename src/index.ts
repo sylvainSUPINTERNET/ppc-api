@@ -16,6 +16,9 @@ const fetch = require('node-fetch');
 import app from './server/Application';
 import authRouter from "./router/auth/auth";
 import { Users } from "./db/models/users.model";
+import {permissions} from "./config/permissions";
+import { Roles } from "./db/models/roles.model";
+import { Permissions } from "./db/models/permissions.model";
 
 const jwt = require('jsonwebtoken');
 
@@ -140,6 +143,12 @@ app.get('/connect/google', async (req,res,next) => {
 
     if ( user === null ) {
         try {
+            const role = await Roles.findOne({
+                where:  {
+                    name: "ROLE_USER"
+                },
+            });
+
             const newUser = Users.build({             
                 fullName: respUserInfo["name"],
                 pictureLink: respUserInfo["picture"],
@@ -147,7 +156,8 @@ app.get('/connect/google', async (req,res,next) => {
                 firstName: respUserInfo["given_name"],
                 email: respUserInfo["email"],
                 locale: 'fr',
-                active: true});
+                active: true, 
+                roleId: role.dataValues.id});
             const respSave = await newUser.save();
         } catch ( e ) {
             console.log("ERR save new user : ", e);
@@ -252,10 +262,51 @@ app.listen(config.PORT, async () => {
         // Sync models : 
         
         if ( process.env.ACTIVE_PROFIL === "dev" ) {
-            // todo sync alter model
             models.map( async model => {
                 await model.sync({ alter: true });
             });
+
+            let roles = Object.keys(permissions);
+
+            roles.map ( async role => {
+                const roleExist = await Roles.findOne({
+                    where:  {
+                        name: role
+                    },
+                });
+                if ( roleExist === null ) {
+                    let newRole = Roles.build({
+                        name: role
+                    });
+                    const newRoleData = await newRole.save();
+
+                    // Insert linked permissions to the role
+                    
+                    permissions[role].map( async linkedPerm => {
+                        const permExist = await Permissions.findOne({
+                            where:  {
+                                name: linkedPerm
+                            },
+                        });
+
+                        
+                        if ( permExist === null ) {
+                            let newPerm = Permissions.build({
+                                name: linkedPerm,
+                                roleId: newRoleData.dataValues.id
+                            });
+                            await newPerm.save();
+                        }
+                    })
+
+
+                }
+
+            })
+
+
+
+
         } else {
             // todo sync model without alter 
         }

@@ -13,6 +13,3 @@ export const Permissions = sequelize.define('permissions', {
     // Other model options go here
     timestamps: true
 });
-
-
-Permissions.hasMany(Roles, { as: "roles"});
