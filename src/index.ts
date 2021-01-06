@@ -56,7 +56,7 @@ app.use(getResourcePath('auth'), authRouter);
 
 
 
-app.get('/test', authMiddleware.isAuthenticated, authMiddleware.isAuthorized(["PROFIL_READ"]), (req,res,next) => {
+app.get('/test', authMiddleware.isAuthenticated, authMiddleware.isAuthorized(["PROFIL_READ"], true), (req,res,next) => {
     res.status(200).json({
         "message":"salut"
     })

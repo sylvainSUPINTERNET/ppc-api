@@ -29,7 +29,7 @@ export const authMiddleware = {
         }
 
     },
-    isAuthorized: (permissioArray) => {
+    isAuthorized: (permissioArray, isStrict) => {
         return async (req:Request, res:Response, next: NextFunction) => {
             const { name, given_name, family_name, email, locale } = req.decodedToken;
 
@@ -66,19 +66,38 @@ export const authMiddleware = {
                         message: "Unauthorized permission"
                     })
                 } else {
-                    console.log(permissioArray);
-                    let isAllowed = permissions.filter(pf => {
-                        return permissioArray.indexOf(pf.name) >= 0
-                    }).length > 0 ? true: false;
 
-           
-                    if ( isAllowed === true ) {
-                        next()
+                    if ( isStrict ) {
+                        // ALL permissions are required 
+                        let isAllowed = permissions.filter(pf => {
+                            return permissioArray.indexOf(pf.name) >= 0
+                        }).length === permissioArray.length ? true: false;
+    
+               
+                        if ( isAllowed === true ) {
+                            next()
+                        } else {
+                            res.status(401).json({
+                                "message": "Not enough permissions to access this resource."
+                            })
+                        }
                     } else {
-                        res.status(401).json({
-                            "message": "Permission not allow you to access this resource."
-                        })
+                        // All permissions are not required
+                        let isAllowed = permissions.filter(pf => {
+                            return permissioArray.indexOf(pf.name) >= 0
+                        }).length > 0 ? true: false;
+    
+               
+                        if ( isAllowed === true ) {
+                            next()
+                        } else {
+                            res.status(401).json({
+                                "message": "Permission not allow you to access this resource."
+                            })
+                        }
                     }
+
+
 
                 }
             }
