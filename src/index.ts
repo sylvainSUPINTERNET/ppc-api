@@ -19,6 +19,7 @@ import { Users } from "./db/models/users.model";
 import {permissions} from "./config/permissions";
 import { Roles } from "./db/models/roles.model";
 import { Permissions } from "./db/models/permissions.model";
+import { authMiddleware } from "./middlewares/auth/auth.middleware";
 
 const jwt = require('jsonwebtoken');
 
@@ -55,7 +56,7 @@ app.use(getResourcePath('auth'), authRouter);
 
 
 
-app.get('/test', (req,res,next) => {
+app.get('/test', authMiddleware.isAuthenticated, authMiddleware.isAuthorized(["PROFIL_READ"]), (req,res,next) => {
     res.status(200).json({
         "message":"salut"
     })
@@ -125,6 +126,7 @@ app.get('/connect/google', async (req,res,next) => {
     }
     const userInfo = await fetch(endpoints["userinfo_endpoint"], optionUserInfo);
     const respUserInfo = await userInfo.json();
+    
 
     console.log(respUserInfo);
     console.log("USER EMAIL : " + respUserInfo["email"]);
@@ -136,7 +138,7 @@ app.get('/connect/google', async (req,res,next) => {
             lastName: respUserInfo["family_name"],
             firstName: respUserInfo["given_name"],
             email: respUserInfo["email"],
-            locale: 'fr'
+            locale: respUserInfo["locale"]
         },
     });
     console.log("USER FOUND : ", user);
@@ -221,7 +223,10 @@ app.get('/connect/google', async (req,res,next) => {
         // - create table role => has many permissions (table permission todo)
         // - If user for OAUTH2 infos not exist, create him else do nothing
 
-        let tokenClient = jwt.sign(respUserInfo, process.env.JWT_CLIENT_TOKEN_SECRET);
+
+        let tokenClient = jwt.sign(respUserInfo, process.env.JWT_CLIENT_TOKEN_SECRET, {
+            expiresIn: '24h'
+        });
         res.redirect(process.env.OAUTH_REDIRECT_SUCCESS_CLIENT + "/auth/redirect?tok="+tokenClient)
 
         // If user is logged, by default relation to role USER 

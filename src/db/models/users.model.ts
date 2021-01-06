@@ -2,7 +2,7 @@
 
 import {sequelize} from "../../db/DbConnection";
 import {Sequelize} from "sequelize";
-import { Roles } from "./roles.model";
+
 const { DataTypes } = require('sequelize');
 
 export const Users = sequelize.define('users', {

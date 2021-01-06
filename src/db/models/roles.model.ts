@@ -22,3 +22,4 @@ export const Roles = sequelize.define('roles', {
 
 Roles.hasMany(Permissions, { as: "permissions"});
 Roles.hasMany(Users, { as: "users"});
+Users.belongsTo(Roles, {foreignKey: 'roleId', as: 'role'})
