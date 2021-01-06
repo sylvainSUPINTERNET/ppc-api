@@ -66,16 +66,21 @@ export const authMiddleware = {
                         message: "Unauthorized permission"
                     })
                 } else {
-                    let isAllowed = permissioArray.filter(permGiven => {
-                        return permissions.indexOf(permGiven) >= 0
+                    console.log(permissioArray);
+                    let isAllowed = permissions.filter(pf => {
+                        return permissioArray.indexOf(pf.name) >= 0
                     }).length > 0 ? true: false;
 
-                    console.log(isAllowed);
+           
+                    if ( isAllowed === true ) {
+                        next()
+                    } else {
+                        res.status(401).json({
+                            "message": "Permission not allow you to access this resource."
+                        })
+                    }
 
                 }
-
-                
-                next();
             }
                     
         }
