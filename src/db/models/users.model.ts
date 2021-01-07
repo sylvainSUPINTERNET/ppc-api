@@ -34,7 +34,11 @@ export const Users = sequelize.define('users', {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: false
-        }
+        },
+    provider: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
 }, {
     // Other model options go here
     timestamps: true

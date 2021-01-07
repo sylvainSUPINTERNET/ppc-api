@@ -31,7 +31,7 @@ export const authMiddleware = {
     },
     isAuthorized: (permissioArray, isStrict) => {
         return async (req:Request, res:Response, next: NextFunction) => {
-            const { name, given_name, family_name, email, locale } = req.decodedToken;
+            const { name, given_name, family_name, email, locale, provider } = req.decodedToken;
 
             const user = await Users.findOne({
                 where:  {
@@ -39,7 +39,8 @@ export const authMiddleware = {
                     lastName: family_name,
                     firstName: given_name,
                     email: email,
-                    locale: locale
+                    locale: locale,
+                    provider: provider
                 },
                 include: [
                     {

@@ -138,7 +138,8 @@ app.get('/connect/google', async (req,res,next) => {
             lastName: respUserInfo["family_name"],
             firstName: respUserInfo["given_name"],
             email: respUserInfo["email"],
-            locale: respUserInfo["locale"]
+            locale: respUserInfo["locale"],
+            provider: 'google'
         },
     });
     console.log("USER FOUND : ", user);
@@ -159,7 +160,8 @@ app.get('/connect/google', async (req,res,next) => {
                 email: respUserInfo["email"],
                 locale: 'fr',
                 active: true, 
-                roleId: role.dataValues.id});
+                roleId: role.dataValues.id,
+                provider: 'google'});
             const respSave = await newUser.save();
         } catch ( e ) {
             console.log("ERR save new user : ", e);
