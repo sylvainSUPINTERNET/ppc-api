@@ -10,6 +10,10 @@ export const Users = sequelize.define('users', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    uuid: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     firstName: {
         type: DataTypes.STRING,
         allowNull: false

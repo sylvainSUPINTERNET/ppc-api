@@ -22,6 +22,7 @@ import { Permissions } from "./db/models/permissions.model";
 import { authMiddleware } from "./middlewares/auth/auth.middleware";
 
 const jwt = require('jsonwebtoken');
+import { v4 as uuidv4 } from 'uuid';
 
 
 const cors = require('cors');
@@ -161,6 +162,7 @@ app.get('/connect/google', async (req,res,next) => {
                 locale: 'fr',
                 active: true, 
                 roleId: role.dataValues.id,
+                uuid: uuidv4(),
                 provider: 'google'});
             const respSave = await newUser.save();
         } catch ( e ) {
