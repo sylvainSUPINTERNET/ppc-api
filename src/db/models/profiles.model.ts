@@ -2,12 +2,16 @@
 
 import {sequelize} from "../../db/DbConnection";
 import {Sequelize} from "sequelize";
-import {Profiles} from "./profiles.model";
+import {Users} from "./users.model";
 
 const { DataTypes } = require('sequelize');
 
-export const Users = sequelize.define('users', {
-    fullName: {
+export const Profiles = sequelize.define('profiles', {
+    city: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    username: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -15,37 +19,30 @@ export const Users = sequelize.define('users', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    firstName: {
+    country: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    lastName: {
+    sexe: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    pictureLink: {
+    relationKind: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    email: {
-        type: DataTypes.STRING,
+    hobbies: {
+        type: DataTypes.TEXT,
         allowNull: false
-    },
-    locale: { // e.g 'fr' (for Google profile scope OAUTH2)
-        type: DataTypes.STRING,
-        allowNull: true
     },
     active: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
-        allowNull: false
-        },
-    provider: {
-        type: DataTypes.STRING,
         allowNull: false
     }
 }, {
     // Other model options go here
     timestamps: true
 });
+
 

@@ -1,5 +1,7 @@
 'use strict';
 
+import profileRouter from "./router/profile/profile";
+
 require('dotenv').config();
 
 import {OauthProvider} from "./config/oauthConfig";
@@ -54,6 +56,7 @@ app.use(morgan('combined'));
 /*
 app.use(getResourcePath('auth'), authRouter);
 */
+app.use(getResourcePath('profiles'), profileRouter);
 
 
 
