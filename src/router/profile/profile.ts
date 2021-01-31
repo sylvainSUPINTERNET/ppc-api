@@ -4,6 +4,6 @@ import {profileMiddleware} from "../../middlewares/profile/profile.middleware";
 
 const profileRouter = express.Router();
 
-profileRouter.get('/', profileMiddleware.create);
+profileRouter.post('/', profileMiddleware.create);
 
 export default profileRouter;

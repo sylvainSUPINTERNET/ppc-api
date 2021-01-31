@@ -1,9 +1,11 @@
 'use strict';
 
+import IProfile from "../../dto/IProfile";
+
 export const profileService = {
-    createProfile: () => {
+    createProfile: (newProfile: IProfile) => {
         return new Promise( (resolve, reject) => {
-            resolve("WIP test");
+            resolve(newProfile);
         });
     }
 }

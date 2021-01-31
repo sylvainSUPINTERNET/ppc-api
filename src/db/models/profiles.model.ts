@@ -23,7 +23,7 @@ export const Profiles = sequelize.define('profiles', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    sexe: {
+    gender: {
         type: DataTypes.STRING,
         allowNull: false
     },
