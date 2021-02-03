@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken');
 
 // USELESS ?
 export const authMiddleware = {
-
     isAuthenticated : async (req:Request, res:Response, next: NextFunction) => {
         let authHeader = req.headers.authorization;
         if ( !authHeader ) {

@@ -25,6 +25,7 @@ import { authMiddleware } from "./middlewares/auth/auth.middleware";
 
 const jwt = require('jsonwebtoken');
 import { v4 as uuidv4 } from 'uuid';
+import userRouter from "./router/user/user.router";
 
 
 const cors = require('cors');
@@ -57,7 +58,7 @@ app.use(morgan('combined'));
 app.use(getResourcePath('auth'), authRouter);
 */
 app.use(getResourcePath('profiles'), profileRouter);
-
+app.use(getResourcePath('users'), userRouter);
 
 
 app.get('/test', authMiddleware.isAuthenticated, authMiddleware.isAuthorized(["PROFIL_READ"], true), (req,res,next) => {
