@@ -169,11 +169,15 @@ app.get('/connect/google', async (req,res,next) => {
                 uuid: uuidv4(),
                 provider: 'google'});
             const respSave = await newUser.save();
+
+            respUserInfo["id"] = respSave.id;
+
         } catch ( e ) {
             console.log("ERR save new user : ", e);
         }
 
     } else {
+        respUserInfo["id"] = user.id;
         console.log("User already exist. Skip creation")
     }
 
@@ -230,7 +234,6 @@ app.get('/connect/google', async (req,res,next) => {
         // - create table user pour info OAUTH2 => one user has many roles
         // - create table role => has many permissions (table permission todo)
         // - If user for OAUTH2 infos not exist, create him else do nothing
-
 
         let tokenClient = jwt.sign(respUserInfo, process.env.JWT_CLIENT_TOKEN_SECRET, {
             expiresIn: '24h'
