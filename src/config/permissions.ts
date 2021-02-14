@@ -5,6 +5,7 @@ export let permissions = {
         "PROFIL_EDIT",
         "PROFIL_CREATE",
         "PROFIL_DELETE",
-        "PROFIL_READ"
+        "PROFIL_READ",
+        "ALBUM_CREATE",
     ]
 }

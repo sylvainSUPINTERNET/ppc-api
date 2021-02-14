@@ -26,6 +26,7 @@ import { authMiddleware } from "./middlewares/auth/auth.middleware";
 const jwt = require('jsonwebtoken');
 import { v4 as uuidv4 } from 'uuid';
 import userRouter from "./router/user/user.router";
+import albumRouter from "./router/album/album";
 
 
 const cors = require('cors');
@@ -59,6 +60,9 @@ app.use(getResourcePath('auth'), authRouter);
 */
 app.use(getResourcePath('profiles'), profileRouter);
 app.use(getResourcePath('users'), userRouter);
+app.use(getResourcePath('albums'), albumRouter);
+
+console.log(getResourcePath('albums'))
 
 
 app.get('/test', authMiddleware.isAuthenticated, authMiddleware.isAuthorized(["PROFIL_READ"], true), (req,res,next) => {
@@ -178,6 +182,7 @@ app.get('/connect/google', async (req,res,next) => {
 
     } else {
         respUserInfo["id"] = user.id;
+        respUserInfo["provider"] = "google";
         console.log("User already exist. Skip creation")
     }
 
@@ -235,6 +240,7 @@ app.get('/connect/google', async (req,res,next) => {
         // - create table role => has many permissions (table permission todo)
         // - If user for OAUTH2 infos not exist, create him else do nothing
 
+        console.log(respUserInfo)
         let tokenClient = jwt.sign(respUserInfo, process.env.JWT_CLIENT_TOKEN_SECRET, {
             expiresIn: '24h'
         });
@@ -314,8 +320,6 @@ app.listen(config.PORT, async () => {
                             await newPerm.save();
                         }
                     })
-
-
                 }
 
             })

@@ -19,6 +19,7 @@ export const authMiddleware = {
                 let token = authHeader.split(" ")[1];
                 let decoded = jwt.verify(token,  process.env.JWT_CLIENT_TOKEN_SECRET);
                 req.decodedToken = decoded;
+                console.log(decoded);
                 next();
               } catch(err) {
                 res.status(403).json({
@@ -75,6 +76,7 @@ export const authMiddleware = {
     
                
                         if ( isAllowed === true ) {
+                            console.log("IS ALLOWED FOR THIS RESOURCE")
                             next()
                         } else {
                             res.status(401).json({

@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c53429fb-03de-40f1-b635-b6dbdb2b4e1c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/permissions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/permissions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/models/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/models/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middlewares/auth/auth.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/auth/auth.middleware.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +28,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Zulian-app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
@@ -53,7 +56,10 @@
       <workItem from="1612220478733" duration="524000" />
       <workItem from="1612300444385" duration="3006000" />
       <workItem from="1612376491029" duration="3305000" />
-      <workItem from="1612472086496" duration="3249000" />
+      <workItem from="1612472086496" duration="4056000" />
+      <workItem from="1612607335520" duration="1885000" />
+      <workItem from="1612911759849" duration="881000" />
+      <workItem from="1613309219697" duration="6088000" />
     </task>
     <servers />
   </component>
