@@ -175,6 +175,7 @@ app.get('/connect/google', async (req,res,next) => {
             const respSave = await newUser.save();
 
             respUserInfo["id"] = respSave.id;
+            respUserInfo["provider"] = "google";
 
         } catch ( e ) {
             console.log("ERR save new user : ", e);
@@ -244,6 +245,7 @@ app.get('/connect/google', async (req,res,next) => {
         let tokenClient = jwt.sign(respUserInfo, process.env.JWT_CLIENT_TOKEN_SECRET, {
             expiresIn: '24h'
         });
+        console.log(tokenClient)
         res.redirect(process.env.OAUTH_REDIRECT_SUCCESS_CLIENT + "/auth/redirect?tok="+tokenClient)
 
         // If user is logged, by default relation to role USER 
