@@ -13,6 +13,7 @@ class DbConnection {
             host: dbConfig.HOST,
             dialect: dbConfig.DIALECT,
             //logging: (...msg) => console.log(msg)
+            logging: false
         })
 
     }

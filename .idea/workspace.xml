@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c53429fb-03de-40f1-b635-b6dbdb2b4e1c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/dbConnection.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/dbConnection.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/album/album.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/album/album.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +58,14 @@
       <workItem from="1612607335520" duration="1885000" />
       <workItem from="1612911759849" duration="881000" />
       <workItem from="1613309219697" duration="10328000" />
-      <workItem from="1613840382826" duration="1171000" />
+      <workItem from="1613840382826" duration="1843000" />
+      <workItem from="1613905199587" duration="3060000" />
+      <workItem from="1613934338434" duration="2797000" />
+      <workItem from="1614026544068" duration="2225000" />
+      <workItem from="1614207631356" duration="701000" />
+      <workItem from="1614289316771" duration="3320000" />
+      <workItem from="1614421345529" duration="3783000" />
+      <workItem from="1614528614833" duration="3979000" />
     </task>
     <servers />
   </component>
