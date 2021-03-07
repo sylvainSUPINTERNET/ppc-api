@@ -175,6 +175,7 @@ app.get('/connect/google', async (req,res,next) => {
             const respSave = await newUser.save();
 
             respUserInfo["id"] = respSave.id;
+            respUserInfo["uuid"] = respSave.uuid;
             respUserInfo["provider"] = "google";
 
         } catch ( e ) {
@@ -184,6 +185,7 @@ app.get('/connect/google', async (req,res,next) => {
     } else {
         respUserInfo["id"] = user.id;
         respUserInfo["provider"] = "google";
+        respUserInfo["uuid"] = user.uuid;
         console.log("User already exist. Skip creation")
     }
 
