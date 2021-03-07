@@ -5,6 +5,18 @@ import {NextFunction,Response,Request} from "express";
 const jwt = require('jsonwebtoken');
 
 export const userService = {
+    getUsers: async (req:Request, res:Response, next: NextFunction) => {
+        const {authorization} = req.headers;
+
+        let users = await Users.findAll();
+        if ( users ) {
+            res.status(200).json(users);
+        } else {
+            res.status(400).json({
+                "message":"Error is occured while getting user list"
+            })
+        }
+    },
     getUserByEmailWithToken: async (req:Request, res:Response, next: NextFunction) => {
         console.log(req.headers);
         const {authorization} = req.headers;
