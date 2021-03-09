@@ -5,7 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/middlewares/profile/profile.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/profile/profile.middleware.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/router/profile/profile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/profile/profile.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/profile/profile.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/profile/profile.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +71,9 @@
       <workItem from="1614975739039" duration="1261000" />
       <workItem from="1615033232022" duration="4986000" />
       <workItem from="1615131736695" duration="5693000" />
-      <workItem from="1615227034491" duration="5332000" />
+      <workItem from="1615227034491" duration="5361000" />
+      <workItem from="1615324178935" duration="635000" />
+      <workItem from="1615326014363" duration="2072000" />
     </task>
     <servers />
   </component>

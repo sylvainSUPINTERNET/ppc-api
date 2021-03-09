@@ -27,6 +27,11 @@ export const profileMiddleware = {
             "profile": newProfile,
             "message":"Profile added with success"
         })
+    },
+    getProfiles : async (req:Request, res:Response, next: NextFunction) => {
+        res.status(200).json({
+            "profiles": await Profiles.findAll(),
+        })
     }
 }
 
