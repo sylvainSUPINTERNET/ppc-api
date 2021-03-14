@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c53429fb-03de-40f1-b635-b6dbdb2b4e1c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/models/roles.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/models/roles.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dto/IProfile.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/dto/IProfile.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/middlewares/profile/profile.middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/middlewares/profile/profile.middleware.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/profile/profile.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/profile/profile.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +74,7 @@
       <workItem from="1615324178935" duration="635000" />
       <workItem from="1615326014363" duration="2072000" />
       <workItem from="1615413796303" duration="2187000" />
-      <workItem from="1615727735006" duration="5713000" />
+      <workItem from="1615727735006" duration="6020000" />
     </task>
     <servers />
   </component>

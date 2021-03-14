@@ -35,7 +35,12 @@ export const profileMiddleware = {
     },
     getProfiles : async (req:Request, res:Response, next: NextFunction) => {
         res.status(200).json({
-            "profiles": await Profiles.findAll(),
+            "profiles": await Profiles.findAll({
+                include: [{
+                    model: Users
+                    //where: { userId: Sequelize.col('user.id') }
+                }]
+            }),
         })
     }
 }
