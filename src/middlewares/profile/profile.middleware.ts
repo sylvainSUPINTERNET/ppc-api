@@ -6,11 +6,14 @@ import {Request, Response, NextFunction} from 'express';
 import IProfile from "../../dto/IProfile";
 import {Albums} from "../../db/models/albums.model";
 import {Profiles} from "../../db/models/profiles.model";
+import {Users} from "../../db/models/users.model";
 
 export const profileMiddleware = {
     create : async (req:Request, res:Response, next: NextFunction) => {
-        console.log("PROFILE CREATION");
-        console.log(req.body);
+
+        const {id} = req.decodedToken;
+        let userToAttach = await Users.findByPk(id)
+
         let newProfileData: IProfile = {
             cityName: req.body.city,
             countryName: req.body.country,
@@ -21,7 +24,13 @@ export const profileMiddleware = {
             hobbiesListAsString: req.body.hobbies, // array is stringify
             active: true
         }
+
         let newProfile = await profileService.createProfile(newProfileData);
+
+        userToAttach.profileId = newProfile.dataValues.id;
+
+        console.log(`Update user ${id} with profile ${userToAttach.profileId}`);
+        userToAttach.save();
 
         res.status(200).json({
             "profile": newProfile,

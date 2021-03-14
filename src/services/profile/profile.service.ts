@@ -7,6 +7,7 @@ export const profileService = {
     createProfile: async (newProfile: IProfile) => {
         console.log("CREATE THE PROFILE");
         console.log(newProfile);
+        console.log("DECODED TOKEN")
         const profile = Profiles.build({
             city: newProfile.cityName,
             username: newProfile.username,
@@ -17,6 +18,8 @@ export const profileService = {
             hobbies: newProfile.hobbiesListAsString,
             active: newProfile.active
         });
+
+
         console.log(profile);
         return await profile.save();
     }
