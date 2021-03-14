@@ -9,4 +9,5 @@ export default interface IProfile {
     relationKind: string;
     hobbiesListAsString: string;
     active: boolean;
+    userId: number;
 }

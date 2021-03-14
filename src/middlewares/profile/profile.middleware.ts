@@ -22,15 +22,11 @@ export const profileMiddleware = {
             gender: req.body.gender,
             relationKind: req.body.relationKind,
             hobbiesListAsString: req.body.hobbies, // array is stringify
-            active: true
+            active: true,
+            userId: userToAttach.dataValues.id
         }
 
         let newProfile = await profileService.createProfile(newProfileData);
-
-        userToAttach.profileId = newProfile.dataValues.id;
-
-        console.log(`Update user ${id} with profile ${userToAttach.profileId}`);
-        userToAttach.save();
 
         res.status(200).json({
             "profile": newProfile,

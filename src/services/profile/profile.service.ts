@@ -5,9 +5,6 @@ import {Profiles} from "../../db/models/profiles.model";
 
 export const profileService = {
     createProfile: async (newProfile: IProfile) => {
-        console.log("CREATE THE PROFILE");
-        console.log(newProfile);
-        console.log("DECODED TOKEN")
         const profile = Profiles.build({
             city: newProfile.cityName,
             username: newProfile.username,
@@ -16,11 +13,9 @@ export const profileService = {
             gender: newProfile.gender,
             relationKind: newProfile.relationKind,
             hobbies: newProfile.hobbiesListAsString,
-            active: newProfile.active
+            active: newProfile.active,
+            userId: newProfile.userId
         });
-
-
-        console.log(profile);
         return await profile.save();
     }
 }

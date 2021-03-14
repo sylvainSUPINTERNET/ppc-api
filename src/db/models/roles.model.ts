@@ -23,5 +23,9 @@ Roles.hasMany(Permissions, { as: "permissions"});
 Roles.hasMany(Users, { as: "users"});
 Users.belongsTo(Roles, {foreignKey: 'roleId', as: 'role'})
 
-Profiles.hasOne(Users)
-Users.belongsTo(Profiles);
+Users.hasOne(Profiles);
+Profiles.belongsTo(Users);
+
+/*
+Users.hasOne(Profiles)
+Users.belongsTo(Profiles);*/
